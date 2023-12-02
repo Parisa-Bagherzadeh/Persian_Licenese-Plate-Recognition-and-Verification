@@ -1,5 +1,5 @@
 # Deep Text Recognition Benchmark  
-This is an object oriented implementation of [this repository](https://github.com/clovaai/deep-text-recognition-benchmark.git)  
+This is an object oriented implementation of this [repository](https://github.com/clovaai/deep-text-recognition-benchmark.git)  
 I've trained the pretrained model of the repository on Persian license plates images
 
 ## Usage  
