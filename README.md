@@ -8,7 +8,9 @@ I've trained the pretrained model of the repository on Persian license plates im
 2 - Put the downloaded model in weights folder  
 3 - Put your images in io/input folder  
 4 - Run the following command :  
-``` python3 main.py \
+```
+python3 main.py \
 --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn \
---image_folder io/input/ \
---saved_model weights/best_accuracy_license_plate_recognition_model.pth
+--image_folder io/input/ \ 
+--saved_model weights/best_accuracy_license_plate_recognition_model.pth 
+```
