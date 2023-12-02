@@ -11,4 +11,4 @@ Note that the model in this repository is trained on Persian license plates imag
 ``` python3 main.py \
 --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn \
 --image_folder io/input/ \
---saved_model weights/best_accuracy_license_plate_recognition_model.pth ``` 
+--saved_model weights/best_accuracy_license_plate_recognition_model.pth
