@@ -3,8 +3,7 @@ This is an object oriented implementation of this [repository](https://github.co
 I've trained the pretrained model of the repository on Persian license plates images
 
 ## Usage  
-1 - Download the model 
-``` gdown 1-0ZKUUu3ZdMvYVaz-v05mdqi-EyuquJ6 ```  
+1 - Download the [model](https://drive.google.com/file/d/1-0ZKUUu3ZdMvYVaz-v05mdqi-EyuquJ6/view?usp=drive_link)  
 2 - Put the downloaded model in weights folder  
 3 - Put your images in io/input folder  
 4 - Run the following command :  
