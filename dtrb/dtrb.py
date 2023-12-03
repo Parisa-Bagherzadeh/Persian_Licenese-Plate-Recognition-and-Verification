@@ -4,17 +4,18 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.utils.data
 import torch.nn.functional as F
+import torchvision.transforms as transforms
 
-from deep_text_recognition_benchmark.utils import CTCLabelConverter, AttnLabelConverter
-from deep_text_recognition_benchmark.dataset import RawDataset, AlignCollate
-from deep_text_recognition_benchmark.model import Model
+from dtrb.utils import CTCLabelConverter, AttnLabelConverter
+from dtrb.dataset import RawDataset, AlignCollate
+from dtrb.model import Model
 
 
 
 
 parser = argparse.ArgumentParser()
 # parser.add_argument('--image_folder', required=True, help='path to image_folder which contains text images')
-parser.add_argument('--workers', type=int, help='number of data loading workers', default=4)
+parser.add_argument('--workers', type=int, help='number of data loading workers', default = 0)
 parser.add_argument('--batch_size', type=int, default=192, help='input batch size')
 # parser.add_argument('--saved_model', required=True, help="path to saved_model to evaluation")
 """ Data processing """
@@ -55,7 +56,6 @@ class DTRB:
         self.load_model(weights_path)
         
 
-
     def load_model(self,weights_path):
         self.model = Model(opt)
         print('model input parameters', opt.imgH, opt.imgW, opt.num_fiducial, opt.input_channel, opt.output_channel,
@@ -69,7 +69,6 @@ class DTRB:
 
 
     def load_data(self, image_folder):
-        
         AlignCollate_demo = AlignCollate(imgH=opt.imgH, imgW=opt.imgW, keep_ratio_with_pad=opt.PAD)
         demo_data = RawDataset(root = image_folder, opt=opt)  # use RawDataset
         self.demo_loader = torch.utils.data.DataLoader(
@@ -78,56 +77,64 @@ class DTRB:
             num_workers=int(opt.workers),
             collate_fn=AlignCollate_demo, pin_memory=True)
 
-    def predict(self,image_folder):
-        self.load_data(image_folder)
+    def predict(self,image):
+        transform = transforms.Compose([
+            transforms.ToTensor(),
+            #transforms
+
+        ])
+        #self.load_data(image_folder)
         self.model.eval()
         with torch.no_grad():
-            for image_tensors, image_path_list in self.demo_loader:
-                batch_size = image_tensors.size(0)
-                image = image_tensors.to(self.device)
-                # For max length prediction
-                length_for_pred = torch.IntTensor([opt.batch_max_length] * batch_size).to(self.device)
-                text_for_pred = torch.LongTensor(batch_size, opt.batch_max_length + 1).fill_(0).to(self.device)
+            image_tensor = torch.from_numpy(image).type(torch.FloatTensor)
+            image_tensor = torch.unsqueeze(image_tensor, 0)
+            image_tensor = torch.unsqueeze(image_tensor, 1)
+            #for image_tensors, image_path_list in self.demo_loader:
+            batch_size = image_tensor.size(0)
+            image = image_tensor.to(self.device)
+            # For max length prediction
+            length_for_pred = torch.IntTensor([opt.batch_max_length] * batch_size).to(self.device)
+            text_for_pred = torch.LongTensor(batch_size, opt.batch_max_length + 1).fill_(0).to(self.device)
 
-                if 'CTC' in opt.Prediction:
-                    preds = self.model(image, text_for_pred)
+            if 'CTC' in opt.Prediction:
+                preds = self.model(image, text_for_pred)
 
-                    # Select max probabilty (greedy decoding) then decode index to character
-                    preds_size = torch.IntTensor([preds.size(1)] * batch_size)
-                    _, preds_index = preds.max(2)
-                    # preds_index = preds_index.view(-1)
-                    preds_str = self.converter.decode(preds_index, preds_size)
+                # Select max probabilty (greedy decoding) then decode index to character
+                preds_size = torch.IntTensor([preds.size(1)] * batch_size)
+                _, preds_index = preds.max(2)
+                # preds_index = preds_index.view(-1)
+                preds_str = self.converter.decode(preds_index, preds_size)
 
-                else:
-                    preds = self.model(image, text_for_pred, is_train=False)
+            else:
+                preds = self.model(image, text_for_pred, is_train=False)
 
-                    # select max probabilty (greedy decoding) then decode index to character
-                    _, preds_index = preds.max(2)
-                    preds_str = self.converter.decode(preds_index, length_for_pred)
+                # select max probabilty (greedy decoding) then decode index to character
+                _, preds_index = preds.max(2)
+                preds_str = self.converter.decode(preds_index, length_for_pred)
 
 
-                log = open(f'./log_demo_result.txt', 'a')
-                dashed_line = '-' * 80
-                head = f'{"image_path":25s}\t{"predicted_labels":25s}\tconfidence score'
-                
-                print(f'{dashed_line}\n{head}\n{dashed_line}')
-                log.write(f'{dashed_line}\n{head}\n{dashed_line}\n')
+            log = open(f'./log_demo_result.txt', 'a')
+            dashed_line = '-' * 80
+            head = f'{"image_path":25s}\t{"predicted_labels":25s}\tconfidence score'
+            
+            print(f'{dashed_line}\n{head}\n{dashed_line}')
+            log.write(f'{dashed_line}\n{head}\n{dashed_line}\n')
 
-                preds_prob = F.softmax(preds, dim=2)
-                preds_max_prob, _ = preds_prob.max(dim=2)
-                for img_name, pred, pred_max_prob in zip(image_path_list, preds_str, preds_max_prob):
-                    if 'Attn' in opt.Prediction:
-                        pred_EOS = pred.find('[s]')
-                        pred = pred[:pred_EOS]  # prune after "end of sentence" token ([s])
-                        pred_max_prob = pred_max_prob[:pred_EOS]
+            preds_prob = F.softmax(preds, dim=2)
+            preds_max_prob, _ = preds_prob.max(dim=2)
+            for img_name, pred, pred_max_prob in zip(image_path_list, preds_str, preds_max_prob):
+                if 'Attn' in opt.Prediction:
+                    pred_EOS = pred.find('[s]')
+                    pred = pred[:pred_EOS]  # prune after "end of sentence" token ([s])
+                    pred_max_prob = pred_max_prob[:pred_EOS]
 
-                    # calculate confidence score (= multiply of pred_max_prob)
-                    confidence_score = pred_max_prob.cumprod(dim=0)[-1]
+                # calculate confidence score (= multiply of pred_max_prob)
+                confidence_score = pred_max_prob.cumprod(dim=0)[-1]
 
-                    print(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}')
-                    log.write(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}\n')
+                print(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}')
+                log.write(f'{img_name:25s}\t{pred:25s}\t{confidence_score:0.4f}\n')
 
-                log.close()
+            log.close()
 
         
 if __name__ == "__main__":
