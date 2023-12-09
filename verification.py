@@ -1,4 +1,6 @@
 import argparse
+import sqlite3
+from difflib import  SequenceMatcher
 import cv2
 from ultralytics import YOLO
 from dtrb.dtrb import DTRB
@@ -51,11 +53,22 @@ for result in results:
             plate_image = cv2.resize(plate_image, (100, 32))
             plate_image = cv2.cvtColor(plate_image, cv2.COLOR_BGR2GRAY)
             cv2.rectangle(image, (bbox[0], bbox[1]),(bbox[2], bbox[3]),(0, 255, 0), 4)
-            plate_rcognizer.predict(plate_image, opt)
-    
+            preds = plate_rcognizer.predict(plate_image, opt)
+
+connection = sqlite3.connect("LicensePlate.db")
+my_cursor = connection.cursor()
 
 
-cv2.imwrite("io/input_plates/plate_image_result.jpg", image)
+for driver in my_cursor.execute("SELECT * FROM drivers"):
+    if SequenceMatcher(None, driver[2], preds).ratio() > 0.80:
+        print(f"{driver[1]} can enter")
+        break
+    else:
+        print("Not Enter!")    
+        
+       
+
+# cv2.imwrite("io/input_plates/plate_image_result.jpg", image)
 
 
 
