@@ -39,6 +39,9 @@ opt = parser.parse_args()
 plate_detector = YOLO(opt.detector_weights)
 plate_rcognizer = DTRB(opt.recognizer_weights, opt)
 
+connection = sqlite3.connect("LicensePlate.db")
+my_cursor = connection.cursor()
+
 image = cv2.imread(opt.input_image)
 results = plate_detector.predict(image)
 
@@ -55,20 +58,21 @@ for result in results:
             cv2.rectangle(image, (bbox[0], bbox[1]),(bbox[2], bbox[3]),(0, 255, 0), 4)
             preds = plate_rcognizer.predict(plate_image, opt)
 
-connection = sqlite3.connect("LicensePlate.db")
-my_cursor = connection.cursor()
+            flag = False
+            name = ''
 
+            for driver in my_cursor.execute("SELECT * FROM drivers"):
+                if SequenceMatcher(None, driver[2], preds).ratio() > 0.80:
 
-for driver in my_cursor.execute("SELECT * FROM drivers"):
-    if SequenceMatcher(None, driver[2], preds).ratio() > 0.80:
-        print(f"{driver[1]} can enter")
-        break
-    else:
-        print("Not Enter!")    
-        
-       
+                    flag = True
+                    name = driver[1]    
 
-# cv2.imwrite("io/input_plates/plate_image_result.jpg", image)
+            if flag == True:
+                print(f"{name} can enter!") 
+            else:
+                print(f"{driver[2]} can not enter!")
+
+            
 
 
 
