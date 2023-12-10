@@ -65,12 +65,15 @@ for result in results:
                 if SequenceMatcher(None, driver[2], preds).ratio() > 0.80:
 
                     flag = True
-                    name = driver[1]    
+                    name = driver[1]
+
+                else:
+                    lp = preds        
 
             if flag == True:
                 print(f"{name} can enter!") 
             else:
-                print(f"{driver[2]} can not enter!")
+                print(f"{lp} can not enter!")
 
             
 
