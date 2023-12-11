@@ -24,9 +24,9 @@ python verification.py
 ### Result
 <table>
   <tr>
-    <td>License Plate Detection</td>
-    <td>License Plate Recognition</td>
-    <td>License Plate Recognition</td>
+    <td><b>License Plate Detection</td>
+    <td><b>License Plate Recognition</td>
+    <td><b>License Plate Recognition</td>
   </tr>
    <tr>
     <td><img src="io\input_plates\plate_image_result.jpg"></td>
