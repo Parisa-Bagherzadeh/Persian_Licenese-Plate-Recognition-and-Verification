@@ -20,3 +20,19 @@ python main.py --input_image YOUR_IMAGE.jpg --threshold YOUR_ARGUMENT
 ```
 python verification.py
 ```
+
+### Result
+<table>
+  <tr>
+    <td>License Plate Detection</td>
+    <td>License Plate Recognition</td>
+    <td>License Plate Recognition</td>
+  </tr>
+   <tr>
+    <td><img src="io\input_plates\plate_image_result.jpg"></td>
+    <td><img src="io\output\image_result_0.jpg"></td>
+    <td><img src="io\output\image_result_1.jpg"></td>
+  </tr>
+</table>
+
+
