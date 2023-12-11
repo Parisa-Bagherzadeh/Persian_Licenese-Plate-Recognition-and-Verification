@@ -70,7 +70,7 @@ for result in results:
                 else:
                     lp = preds        
 
-            if flag == True:
+            if flag:
                 print(f"{name} can enter!") 
             else:
                 print(f"{lp} can not enter!")
