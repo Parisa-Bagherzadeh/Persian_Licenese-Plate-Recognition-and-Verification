@@ -29,7 +29,7 @@ python verification.py
     <td><b>License Plate Recognition</td>
   </tr>
    <tr>
-    <td><img src="io\input_plates\plate_image_result.jpg"></td>
+    <td><img src="io\input_plates\plate_image_result.jpg" width="250" heigth="250"></td>
     <td><img src="io\output\image_result_0.jpg"></td>
     <td><img src="io\output\image_result_1.jpg"></td>
   </tr>
