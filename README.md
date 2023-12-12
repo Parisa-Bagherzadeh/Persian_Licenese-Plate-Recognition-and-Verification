@@ -27,7 +27,7 @@ python verification.py
     <th colspan="2">License Plate Detection</th>
   </tr>
   <tr>
-    <td><img src="io\input_plates\plate_image_result.jpg" alt="Input Plate Image"></td>
+    <td colspan="2"><img src="io\input_plates\plate_image_result.jpg" alt="License Plate Image"></td>
   </tr>
   <tr>
     <td><b>License Plate Recognition</b></td>
@@ -38,10 +38,15 @@ python verification.py
     <td><img src="io\output\image_result_1.jpg" alt="Recognition Result 1"></td>
   </tr>
   <tr>
-    <th colspan="2">License Plate Verification</th>
+    <th colspan="2">Drivers Table</th>
   </tr>
   <tr>
-    <td><img src="table\table.png" alt="Verification Table"></td>
-    <td><img src="table\result.png" alt="Verification Result"></td>
+    <td colspan="2"><img src="table\table.png" alt="Verification Table"></td>
+  </tr>
+  <tr>
+    <th colspan="2">Verification Result</th>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="table\result.png" alt="Verification Result"></td>
   </tr>
 </table>
