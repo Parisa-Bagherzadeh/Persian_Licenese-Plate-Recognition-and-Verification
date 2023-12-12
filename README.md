@@ -22,6 +22,16 @@ python verification.py
 ```
 
 ### Result
+<style>
+  table {
+    margin: auto;
+  }
+
+  td {
+    text-align: center;
+  }
+</style>
+
 <table>
   <tr>
     <th colspan="2">License Plate Detection</th>
@@ -38,7 +48,7 @@ python verification.py
     <td><img src="io\output\image_result_1.jpg" alt="Recognition Result 1"></td>
   </tr>
   <tr>
-    <th colspan="2">Drivers Table</th>
+    <th colspan="2">License Plate Verification</th>
   </tr>
   <tr>
     <td colspan="2"><img src="table\table.png" alt="Verification Table"></td>
