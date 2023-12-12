@@ -24,24 +24,24 @@ python verification.py
 ### Result
 <table>
   <tr>
-      <center>License Plate Detection</center>
+    <th colspan="2">License Plate Detection</th>
   </tr>
   <tr>
-    <img src="io\input_plates\plate_image_result.jpg">
+    <td><img src="io\input_plates\plate_image_result.jpg" alt="Input Plate Image"></td>
+  </tr>
   <tr>
-    <td><b>License Plate Recognition</td>
-    <td><b>License Plate Recognition</td>
+    <td><b>License Plate Recognition</b></td>
+    <td><b>License Plate Recognition</b></td>
   </tr>  
-    <td><img src="io\output\image_result_0.jpg"></td>
-    <td><img src="io\output\image_result_1.jpg"></td>
+  <tr>
+    <td><img src="io\output\image_result_0.jpg" alt="Recognition Result 0"></td>
+    <td><img src="io\output\image_result_1.jpg" alt="Recognition Result 1"></td>
   </tr>
   <tr>
-    <th>License Plate Verification<th>
+    <th colspan="2">License Plate Verification</th>
   </tr>
   <tr>
-    <td><img src="table\table.png"></td>
-    <td><img src="table\result.png"></td>
+    <td><img src="table\table.png" alt="Verification Table"></td>
+    <td><img src="table\result.png" alt="Verification Result"></td>
   </tr>
 </table>
-
-
