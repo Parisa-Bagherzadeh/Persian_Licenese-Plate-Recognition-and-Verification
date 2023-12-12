@@ -22,13 +22,31 @@ python verification.py
 ```
 
 ### Result
-| License Plate Detection |   |
-| :----------------------: | - |
-| ![License Plate Image](io/input_plates/plate_image_result.jpg) | |
-| **License Plate Recognition** | **License Plate Recognition** |
-| ![Recognition Result 0](io/output/image_result_0.jpg) | ![Recognition Result 1](io/output/image_result_1.jpg) |
-| License Plate Verification |   |
-| ![Verification Table](table/table.png) | |
-| **Verification Result** |   |
-| ![Verification Result](table/result.png) | |
-
+<table>
+  <tr>
+    <th colspan="2">License Plate Detection</th>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="io\input_plates\plate_image_result.jpg" alt="License Plate Image"></td>
+  </tr>
+  <tr>
+    <td><b>License Plate Recognition</b></td>
+    <td><b>License Plate Recognition</b></td>
+  </tr>  
+  <tr>
+    <td><img src="io\output\image_result_0.jpg" alt="Recognition Result 0"></td>
+    <td><img src="io\output\image_result_1.jpg" alt="Recognition Result 1"></td>
+  </tr>
+  <tr>
+    <th colspan="2">Drivers Table</th>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="table\table.png" alt="Verification Table"></td>
+  </tr>
+  <tr>
+    <th colspan="2">Verification Result</th>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="table\result.png" alt="Verification Result"></td>
+  </tr>
+</table>
