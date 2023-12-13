@@ -41,12 +41,12 @@ python verification.py
     <th colspan="2">Drivers Table</th>
   </tr>
   <tr>
-    <td colspan="2"><img src="table\table.png" alt="Verification Table"></td>
+    <td colspan="2"><img src="verification_result\table.png" alt="Verification Table"></td>
   </tr>
   <tr>
     <th colspan="2">Verification Result</th>
   </tr>
   <tr>
-    <td colspan="2"><img src="table\result.png" alt="Verification Result"></td>
+    <td colspan="2"><img src="verification_result\verification_output.png" alt="Verification Result"></td>
   </tr>
 </table>
