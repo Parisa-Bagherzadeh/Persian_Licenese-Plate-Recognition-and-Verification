@@ -49,10 +49,8 @@ for result in results:
     for i in range(len(result.boxes.xyxy)):
         if result.boxes.conf[i] > opt.threshold:
             bbox = result.boxes.xyxy[i]
-            # print(bbox)
             bbox = bbox.cpu().detach().numpy().astype(int)
             plate_image = image[bbox[1]:bbox[3], bbox[0]:bbox[2]].copy()
-            # cv2.imwrite(f"io/output/image_result_{i}.jpg", plate_image)
             plate_image = cv2.resize(plate_image, (100, 32))
             plate_image = cv2.cvtColor(plate_image, cv2.COLOR_BGR2GRAY)
             cv2.rectangle(image, (bbox[0], bbox[1]),(bbox[2], bbox[3]),(0, 255, 0), 4)
@@ -71,9 +69,9 @@ for result in results:
                     lp = preds        
 
             if flag:
-                print(f"{name} can enter!") 
+                print(f"✅ {name} can enter ") 
             else:
-                print(f"{lp} can not enter!")
+                print(f"🚫 {lp} can not enter ")
 
             
 
