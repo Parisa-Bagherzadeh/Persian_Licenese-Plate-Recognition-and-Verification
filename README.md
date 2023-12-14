@@ -10,7 +10,7 @@ pip install -r requirements
 ```
 
 ## Usage  
-1 - git clone ```https://github.com/Parisa-Bagherzadeh/Persian_Licenese-Plate-Recognition-and-Verification.git```
+1 - git clone ```https://github.com/Parisa-Bagherzadeh/Persian_Licenese-Plate-Recognition-and-Verification.git```  
 2 - Download the [pretrained weights of YOLOV8](https://drive.google.com/file/d/10nf2bbfsfFf24WMTK9XbrL1VojWsRac1/view?usp=sharing) and put it in weights/yolov8-detector folder  
 3 - Download the [pretrained weights of Text Recognizer](https://drive.google.com/file/d/1--Fmea7nsWD5EAKPM7qL7nO14ecSIyjP/view?usp=sharing) and put it in weights/dtrb_recognizer   
 4 - Put your images in io/input folder  
