@@ -1,4 +1,4 @@
-# License Plate Recognition and Verification
+# License Plate Detection, Recognition and Verification
 This project consists of three parts :  
 1 - YOLOV8 is used to detect license plates on images  
 2 - Deep Text Recognition Benchmark is used to recognize the lincense plates which have been detected in the previous step  
